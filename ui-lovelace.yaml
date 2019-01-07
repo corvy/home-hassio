@@ -1,0 +1,121 @@
+title: Home
+
+# Custom card for temperature: https://github.com/kalkih/mini-graph-card?v=0.1.0
+resources:
+  - url: /local/mini-graph-card-bundle.js
+    type: module
+  - url: /local/button-card.js
+    type: module
+
+views:
+  - title: default_view
+    icon: mdi:home
+    badges: []
+    cards:
+
+      - type: weather-forecast
+        entity: weather.metno
+
+## Lights
+      - type: vertical-stack
+        cards: 
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.qubino_zmnhdd1_flush_dimmer_level
+                name: Toalett Overetasjen
+              - type: light
+                entity: light.sondres_soverom
+                name: Sondres Soverom
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.inngangsparti
+                name: Inngangsparti
+              - type: entity-button
+                entity: switch.qubino_zmnhadx_flush_1_relay_switch
+                tap_action: 
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.qubino_zmnhadx_flush_1_relay_switch
+      - type: vertical-stack
+        cards: 
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.qubino_zmnhdd1_flush_dimmer_level_2
+                name: Spotter i Stua
+              - type: light
+                entity: light.fibaro_system_fgd212_dimmer_2_level_2
+                name: Lys over Spisestua
+
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                entity: sensor.temperature_3
+                name: Stua
+                line_color: '#f5cb43'
+                line_width: 8
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                entity: sensor.aeotec_zw100_multisensor_6_temperature
+                name: Kjellergang
+                line_color: '#e74c3c'
+                line_width: 8
+          - type: entity-button
+            entity: lock.hoveddr
+            tap_action:
+              action: call-service
+              service: lock.lock
+
+  - icon: mdi:shield
+    title: Alarm
+    cards:
+      - type: alarm-panel
+        entity: alarm_control_panel.belsetsvingen_alarm
+      - type: entity-button
+        entity: lock.hoveddr
+        tap_action:
+          action: call-service
+          service: lock.lock
+
+
+  - title: <>
+    cards:
+      - type: entities
+        title: all automations
+        show_header_toggle: true
+        entities:
+          - automation.decrease_brightness_of_lamp_from_dimmer
+          - automation.increase_brightness_of_lamp_from_dimmer
+          - automation.nattlys_av_inngangsparti
+          - automation.nattlys_inngangsparti
+          - automation.sensorstyring_av_kjellerlys
+          - automation.toalett_oppe_lys_av
+          - automation.toalett_oppe_lys_pa
+      - type: entities
+        title: all lights
+        show_header_toggle: true
+        entities:
+          - light.bod_hyre
+          - light.bod_venstre
+          - light.fibaro_system_fgd212_dimmer_2_level_2
+          - light.fibaro_system_fgd212_dimmer_2_level
+          - light.inngangsdr_ned
+          - light.inngangsdr_opp
+          - light.inngangsparti
+          - light.qubino_zmnhdd1_flush_dimmer_level
+          - light.qubino_zmnhdd1_flush_dimmer_level_2
+          - light.sondres_soverom_2
+          - light.sondres_soverom
+      - type: entities
+        title: all switches
+        show_header_toggle: true
+        entities:
+          - switch.qubino_zmnhadx_flush_1_relay_switch
+          - switch.qubino_zmnhdd1_flush_dimmer_switch
+          - switch.qubino_zmnhdd1_flush_dimmer_switch_2

@@ -1,0 +1,47 @@
+default_view:
+  view: yes
+  icon: mdi:home 
+  entities: 
+    - device_tracker.sebastian_ipad
+    - device_tracker.samuel_ipad
+    - device_tracker.sondre_mobil
+    - sensor.yr_symbol
+    - group.overetasje
+    - group.inngangsparti
+    - group.hovedetasje
+    - group.kjeller
+
+Overetasje:
+  name: "Overetasje"
+  entities:
+    - light.qubino_zmnhdd1_flush_dimmer_level
+    - light.sondres_soverom
+
+Inngangsparti:
+  name: "Inngangsparti"
+  entities:
+    - light.inngangsparti
+
+Hovedetasje:
+  name: "Hovedetasje"
+  entities:
+    - light.qubino_zmnhdd1_flush_dimmer_level_2
+    - light.fibaro_system_fgd212_dimmer_2_level_2
+
+Kjeller:
+  name: "Kjeller"
+  entities:
+    - switch.qubino_zmnhadx_flush_1_relay_switch
+    - sensor.aeotec_zw100_multisensor_6_temperature
+
+Admin:
+  view: yes
+  name: "<>"
+  entities:
+   - group.all_automations
+   - group.all_devices
+   - group.all_lights
+   - group.all_locks
+   - group.all_remotes
+   - group.all_scripts
+   - group.all_switches

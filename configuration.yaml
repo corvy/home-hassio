@@ -1,0 +1,91 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: !secret name
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 200
+  unit_system: metric
+  time_zone: !secret timezone
+
+# Customization file
+  customize: !include customize.yaml
+
+# Lovelace UI (new user interface)
+lovelace:
+  mode: yaml
+
+# Enables the frontend
+frontend:
+  themes: !include themes.yaml
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  base_url: ha.barmen.nu
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Sensors
+sensor:
+  # Weather prediction
+  - platform: yr
+
+# Weather in Lovelace requires a weather platform component
+weather:
+  - platform: met
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+# Verisure door lock
+verisure:
+  username: !secret verisure_username
+  password: !secret verisure_password
+  default_lock_code: !secret verisure_lock_code
+
+# Sector Alarm
+sector_alarm:
+  email: !secret sector_username
+  password: !secret sector_password
+  alarm_id: !secret sector_alarm_id
+#  code: !secret sector_code
+  thermometers: false
+  alarm_panel: true
+
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml

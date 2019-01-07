@@ -1,0 +1,6 @@
+sensor.temperature_3:
+  friendly_name: Temperatur i Stua
+switch.qubino_zmnhadx_flush_1_relay_switch:
+  icon: mdi:lightbulb
+lock.hoveddr:
+  friendly_name: Inngangsdør
