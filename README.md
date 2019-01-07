@@ -14,11 +14,15 @@ Short info about my setup:
 - Verisure and Yale Doorman lock
 - Sector Alarm home security system
 
+In custom_compontents (/config/custom_components) I have installed the following:
+  git clone https://github.com/mgejke/asyncsector
+  git clone https://github.com/mgejke/hass-sectoralarm
+
 Date, monday 7th of january 2019 I lost all my config and building it all from scratch. Initial setup from 2017 lost and therefor GitHub! 
 
 If you have any questions reach out to me! 
 
-Email: stian@barmen.nu
-Web: https://www.sbarmen.no
-XMPP: stian@jabber.no
-Hangouts: stian@barmen.nu
+  Email: stian@barmen.nu
+  Web: https://www.sbarmen.no
+  XMPP: stian@jabber.no
+  Hangouts: stian@barmen.nu
