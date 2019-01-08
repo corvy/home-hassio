@@ -70,7 +70,12 @@ views:
             entity: lock.hoveddr
             tap_action:
               action: call-service
-              service: lock.lock
+              service: >-
+                      {% if is_state('lock.hoveddr', 'unlocked') %}
+                       lock.lock
+                      {% else %}
+                       lock.unlock
+                      {% endif %}
 
   - icon: mdi:shield
     title: Alarm

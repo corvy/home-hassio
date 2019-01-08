@@ -131,3 +131,16 @@
   action:
     service: light.turn_on
     entity_id: light.inngangsparti  
+
+# Automatic lock front door after 10 seconds
+- alias: 'Lock door after 10 seconds'
+  trigger:
+    platform: state
+    entity_id: lock.hoveddr
+    from: 'locked'
+    to: 'unlocked'
+    for:
+      seconds: 10
+  action:
+    service: lock.lock
+    entity_id: lock.hoveddr
