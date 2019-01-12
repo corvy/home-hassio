@@ -3,6 +3,8 @@ Configuration files for my Home-Assistant Hass.IO Setup
 
 Hello, this is my private setup for Home Assistant on a Raspberry Pi 3B, please steal all you want! That's what I have done :) 
 
+![My HA frontpage](Screenshot_20190112_115541.jpg)
+
 Short info about my setup:
 
 - Raspberry Pi 3
