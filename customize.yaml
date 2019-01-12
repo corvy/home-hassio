@@ -1,6 +1,22 @@
 sensor.temperature_3:
   friendly_name: Temperatur i Stua
 switch.qubino_zmnhadx_flush_1_relay_switch:
-  icon: mdi:lightbulb
+  icon: mdi:ceiling-light
 lock.hoveddr:
   friendly_name: Inngangsdør
+light.inngangsparti:
+  hs_color:
+  - 0
+  - 0
+  icon: mdi:door
+  supported_features: 1
+light.qubino_zmnhdd1_flush_dimmer_level_2:
+  icon: mdi:sofa
+light.fibaro_system_fgd212_dimmer_2_level_2:
+  icon: mdi:silverware-fork-knife
+light.tv_stue:
+  icon: mdi:television
+light.sondres_soverom:
+  icon: mdi:bed-empty
+light.qubino_zmnhdd1_flush_dimmer_level:
+  icon: mdi:toilet

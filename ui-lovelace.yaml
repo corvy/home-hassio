@@ -14,7 +14,7 @@ views:
     cards:
 
       - type: weather-forecast
-        entity: weather.metno
+        entity: weather.met_no
 
 ## Lights
       - type: vertical-stack
@@ -32,24 +32,30 @@ views:
               - type: light
                 entity: light.inngangsparti
                 name: Inngangsparti
+              - type: light
+                entity: light.qubino_zmnhdd1_flush_dimmer_level_2
+                name: Spotter i Stua
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.fibaro_system_fgd212_dimmer_2_level_2
+                name: Lys over Spisestua
+              - type: light
+                entity: light.tv_stue 
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.akvarie
               - type: entity-button
                 entity: switch.qubino_zmnhadx_flush_1_relay_switch
+                name: Kjellergang
                 tap_action: 
                   action: call-service
                   service: switch.toggle
                   service_data:
                     entity_id: switch.qubino_zmnhadx_flush_1_relay_switch
-      - type: vertical-stack
-        cards: 
-          - type: horizontal-stack
-            cards:
-              - type: light
-                entity: light.qubino_zmnhdd1_flush_dimmer_level_2
-                name: Spotter i Stua
-              - type: light
-                entity: light.fibaro_system_fgd212_dimmer_2_level_2
-                name: Lys over Spisestua
-
       - type: vertical-stack
         cards:
           - type: horizontal-stack
@@ -59,35 +65,31 @@ views:
                 name: Stua
                 line_color: '#f5cb43'
                 line_width: 8
-          - type: horizontal-stack
-            cards:
               - type: custom:mini-graph-card
                 entity: sensor.aeotec_zw100_multisensor_6_temperature
                 name: Kjellergang
                 line_color: '#e74c3c'
                 line_width: 8
-          - type: entity-button
-            entity: lock.hoveddr
-            tap_action:
-              action: call-service
-              service: >-
-                      {% if is_state('lock.hoveddr', 'unlocked') %}
-                       lock.lock
-                      {% else %}
-                       lock.unlock
-                      {% endif %}
-
+              - type: custom:mini-graph-card
+                entity: sensor.temperature_7
+                line_color: '#3498db'
+                line_width: 8
+          - type: horizontal-stack
+            cards:
+              - type: entity-button
+                entity: lock.hoveddor
+                tap_action:
+                  action: toggle
   - icon: mdi:shield
     title: Alarm
     cards:
       - type: alarm-panel
-        entity: alarm_control_panel.belsetsvingen_alarm
+        entity: alarm_control_panel.sector_alarm_01603483
+        hide_keypad: false
       - type: entity-button
-        entity: lock.hoveddr
+        entity: lock.hoveddor
         tap_action:
-          action: call-service
-          service: lock.lock
-
+          action: toggle
 
   - title: <>
     cards:
@@ -95,13 +97,7 @@ views:
         title: all automations
         show_header_toggle: true
         entities:
-          - automation.decrease_brightness_of_lamp_from_dimmer
-          - automation.increase_brightness_of_lamp_from_dimmer
-          - automation.nattlys_av_inngangsparti
-          - automation.nattlys_inngangsparti
-          - automation.sensorstyring_av_kjellerlys
-          - automation.toalett_oppe_lys_av
-          - automation.toalett_oppe_lys_pa
+          - group.all_automations
       - type: entities
         title: all lights
         show_header_toggle: true

@@ -1,5 +1,5 @@
 ## Enable dark theme "slate"  ##
-- alias: 'Set tema til "slate"'
+- alias: 'Set tema til slate'
   trigger:
     platform: homeassistant
     event: start
@@ -7,22 +7,6 @@
     service: frontend.set_theme
     data:
       name: slate
-
-# Sensor control for lights
-- alias: Sensorstyring av kjellerlys
-  id: lys_gang_kjeller_sensor_paa
-  trigger:
-    entity_id: binary_sensor.aeotec_zw100_multisensor_6_sensor
-    platform: state
-    from: 'off'
-    to: 'on'
-  action:
-    - service: switch.turn_on
-      entity_id: switch.qubino_zmnhadx_flush_1_relay_switch
-    - delay: '00:30:00'
-    - wait_template: "{{is_state('binary_sensor.aeotec_zw100_multisensor_6_sensor', 'off')}}"
-    - service: switch.turn_off
-      entity_id: switch.qubino_zmnhadx_flush_1_relay_switch
 
 # Control Z-wave light dimmer with HUE Remote from Deconz
 - alias: 'Toalett Oppe Lys På'
@@ -119,7 +103,7 @@
     service: light.turn_off
     entity_id: light.inngangsparti  
 
-- alias: Turn on porch lights if sun is set and motion
+- alias: 'Turn on porch lights if sun is set and motion'
   trigger:
     platform: state
     entity_id: binary_sensor.presence_2
@@ -136,11 +120,54 @@
 - alias: 'Lock door after 10 seconds'
   trigger:
     platform: state
-    entity_id: lock.hoveddr
+    entity_id: lock.hoveddor
     from: 'locked'
     to: 'unlocked'
     for:
       seconds: 10
   action:
     service: lock.lock
-    entity_id: lock.hoveddr
+    entity_id: lock.hoveddor
+
+# Turn on light in the toilet if motion
+- alias: 'Turn on toilet light when there is movement in hallway upstairs'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.presence_6
+    to: 'on'
+  action:
+    service: light.turn_on
+    entity_id: light.qubino_zmnhdd1_flush_dimmer_level
+
+- alias: 'Turn off toilet light 15 minutes after last movement in hallway upstairs'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.presence_6
+    to: 'off'
+    for:
+      minutes: 15
+  action:
+    service: light.turn_off
+    entity_id: light.qubino_zmnhdd1_flush_dimmer_level
+
+# Sensor control for lights in the hallway downstairs
+- alias: 'Turn on hallway light downstairs when there is movement'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aeotec_zw100_multisensor_6_sensor
+    to: 'on'
+  action:
+    service: switch.turn_on
+    entity_id: switch.qubino_zmnhadx_flush_1_relay_switch
+
+- alias: 'Turn off hallway light downstairs 15 minutes after last movement'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aeotec_zw100_multisensor_6_sensor
+    to: 'off'
+    for:
+      minutes: 10
+  action:
+    service: switch.turn_off
+    entity_id: switch.qubino_zmnhadx_flush_1_relay_switch
+
