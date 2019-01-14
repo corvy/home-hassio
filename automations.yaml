@@ -224,6 +224,8 @@
       - condition: state
         entity_id: light.gang_oppe_trapp
         state: 'off'
+        for:
+          minutes: 1 # If manually turned off, delay to ensure movement does not turn it back on
       - condition: time
         after: '20:00'
         before: '08:00'
@@ -232,7 +234,7 @@
     entity_id: scene.gang_oppe_nattlys
 
 
-## Turn on nightlight scene hallway when movement night
+## Turn on light when movement
 - alias: 'Normal-light upstairs hallway' 
   trigger:
     platform: state
@@ -244,6 +246,8 @@
       - condition: state
         entity_id: light.gang_oppe_trapp
         state: 'off'
+        for:
+          minutes: 1 # If manually turned off, delay to ensure movement does not turn it back on
       - condition: time
         after: '08:00'
         before: '20:00'
