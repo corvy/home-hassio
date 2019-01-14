@@ -30,6 +30,11 @@ views:
           - type: horizontal-stack
             cards:
               - type: light
+                entity: light.gang_oppe
+                name: Gang Oppe
+          - type: horizontal-stack
+            cards:
+              - type: light
                 entity: light.inngangsparti
                 name: Inngangsparti
               - type: light

@@ -20,3 +20,5 @@ light.sondres_soverom:
   icon: mdi:bed-empty
 light.qubino_zmnhdd1_flush_dimmer_level:
   icon: mdi:toilet
+light.gang_oppe:
+  supported_features: 1

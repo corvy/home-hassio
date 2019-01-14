@@ -171,3 +171,128 @@
     service: switch.turn_off
     entity_id: switch.qubino_zmnhadx_flush_1_relay_switch
 
+## Turn on nightmode for alarm when no movement in the house for 30 minutes
+- alias: 'Turn on nightmode for alarm'
+  trigger:
+    platform: state # No movement upstairs for 15 minutes
+    entity_id: binary_sensor.presence_2
+    to: 'off'
+    for:
+      minutes: 15
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '23:00'
+        before: '06:00'
+      - condition: state # No movement downstairs for 30 minutes
+        entity_id: binary_sensor.presence_6
+        state: 'off'
+        for:
+          minutes: 30
+  action:
+    service: alarm_control_panel.alarm_arm_home
+    entity_id: alarm_control_panel.sector_alarm_01603483
+    data:
+      code: !secret sector_code
+
+## Turn off alarm nightmode on first movement upstairs
+- alias: 'Turn off nightmode for alarm'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.presence_6
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.sector_alarm_01603483
+    state: 'armed_home'
+  action:
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.sector_alarm_01603483
+    data:
+      code: !secret sector_code
+
+## Turn on nightlight scene hallway when movement night
+- alias: 'Nightlight upstairs hallway'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.presence_6
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.gang_oppe_trapp
+        state: 'off'
+      - condition: time
+        after: '20:00'
+        before: '08:00'
+  action:
+    service: scene.turn_on
+    entity_id: scene.gang_oppe_nattlys
+
+
+## Turn on nightlight scene hallway when movement night
+- alias: 'Normal-light upstairs hallway' 
+  trigger:
+    platform: state
+    entity_id: binary_sensor.presence_6
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.gang_oppe_trapp
+        state: 'off'
+      - condition: time
+        after: '08:00'
+        before: '20:00'
+  action:
+    service: light.turn_on
+    entity_id: light.gang_oppe
+    data:
+      brightness: '127'
+
+## Dim light when no movement in hallway upstairs
+- alias: 'Dim light when no movement in hallway' 
+  trigger:
+    platform: state
+    entity_id: binary_sensor.presence_6
+    to: 'off'
+    for:
+      minutes: 5    
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.gang_oppe_trapp
+        state: 'on'
+      - condition: time
+        after: '08:00'
+        before: '20:00'
+  action:
+    service: light.turn_on
+    entity_id: light.gang_oppe
+    data:
+      brightness: '25'
+
+## Dim light when no movement in hallway upstairs
+- alias: 'Turn off nightlight hallway when no movement' 
+  trigger:
+    platform: state
+    entity_id: binary_sensor.presence_6
+    to: 'off'
+    for:
+      minutes: 5
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.gang_oppe_trapp
+        state: 'on'
+      - condition: time
+        after: '20:00'
+        before: '08:00'
+  action:
+    service: light.turn_off
+    entity_id: light.gang_oppe
